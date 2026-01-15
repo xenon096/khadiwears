@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
-import Navbar from './components/Navbar';
+import { ThemeProvider } from './context/themeContext';
+import Navbar from './components/navBar';
 import Home from './pages/Home';
 import { businessDetails } from './data';
 
 function App() {
   return (
       <ThemeProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/khadiwears">
           <div className="min-h-screen bg-khadi-50 text-khadi-800 transition-colors duration-300 dark:bg-khadi-900 dark:text-khadi-100 font-sans">
             <Navbar />
 
