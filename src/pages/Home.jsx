@@ -1,9 +1,8 @@
+// src/pages/Home.jsx
 import { MapPin, Award, ScrollText, ShieldCheck } from 'lucide-react';
-import { useCart } from '../context/CartContext';
 import { products, businessDetails } from '../data';
 
 export default function Home() {
-    const { addToCart } = useCart();
 
     return (
         <div className="pb-0">
@@ -22,57 +21,58 @@ export default function Home() {
                         Authentic, handspun Khadi directly from the weavers of {businessDetails.tradeName}.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="#shop" className="bg-khadi-900 text-white px-8 py-4 rounded-sm hover:bg-khadi-accent transition-all shadow-lg hover:shadow-xl dark:bg-khadi-100 dark:text-khadi-900 dark:hover:bg-khadi-accent dark:hover:text-white">
-                            Browse Collection
+                        <a href="#gallery" className="bg-khadi-900 text-white px-8 py-4 rounded-sm hover:bg-khadi-accent transition-all shadow-lg hover:shadow-xl dark:bg-khadi-100 dark:text-khadi-900 dark:hover:bg-khadi-accent dark:hover:text-white">
+                            View Our Craft
                         </a>
                         <a href="#about" className="border border-khadi-900 text-khadi-900 px-8 py-4 rounded-sm hover:bg-khadi-100 transition-colors dark:border-khadi-100 dark:text-khadi-100 dark:hover:bg-khadi-800">
-                            Our Legacy
+                            About the Society
                         </a>
                     </div>
                 </div>
             </section>
 
-            {/* --- FEATURED PRODUCTS (SHOP) --- */}
-            <section id="shop" className="max-w-7xl mx-auto px-4 py-24 scroll-mt-16">
+            {/* --- GALLERY SECTION (UPDATED LAYOUT) --- */}
+            <section id="gallery" className="max-w-7xl mx-auto px-4 py-24 scroll-mt-16">
                 <div className="text-center mb-16">
-                    <h2 className="font-serif text-4xl text-khadi-900 mb-4 dark:text-khadi-50">Curated Weaves</h2>
-                    <div className="h-1 w-24 bg-khadi-accent mx-auto"></div>
+                    <h2 className="font-serif text-4xl text-khadi-900 mb-4 dark:text-khadi-50">Masterpieces</h2>
+                    <p className="text-khadi-600 max-w-xl mx-auto dark:text-khadi-300">
+                        A showcase of the traditional weaving techniques preserved by our artisans in the Krishna District.
+                    </p>
+                    <div className="h-1 w-24 bg-khadi-accent mx-auto mt-6"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {/* CHANGED: Used flex-wrap and justify-center instead of grid */}
+                <div className="flex flex-wrap justify-center gap-8">
                     {products.map((product) => (
-                        <div key={product.id} className="group bg-white border border-khadi-100 hover:shadow-2xl transition-all duration-300 dark:bg-khadi-800 dark:border-khadi-700 flex flex-col">
+                        <div
+                            key={product.id}
+                            // CHANGED: Fixed width (w-80 or 320px) ensures uniformity.
+                            // 'w-full' for mobile, 'sm:w-80' for larger screens.
+                            className="w-full sm:w-80 group bg-white border border-khadi-100 hover:shadow-xl transition-all duration-300 dark:bg-khadi-800 dark:border-khadi-700 flex flex-col"
+                        >
+                            {/* Image Area */}
                             <div className="relative overflow-hidden aspect-[3/4] bg-khadi-100 dark:bg-khadi-900">
                                 <img
                                     src={product.image}
                                     alt={product.name}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                                 />
-                                {/* Floating Add Button */}
-                                <div className="absolute bottom-4 right-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                                    <button
-                                        onClick={() => addToCart(product)}
-                                        className="bg-khadi-900 text-white p-3 rounded-full shadow-lg hover:bg-khadi-accent transition-colors dark:bg-khadi-200 dark:text-khadi-900"
-                                        aria-label="Add to cart"
-                                    >
-                                        <ShoppingBagIcon />
-                                    </button>
-                                </div>
                             </div>
-                            <div className="p-5 flex-1 flex flex-col">
-                                <p className="text-xs text-khadi-accent font-bold uppercase mb-2 tracking-wider">{product.category}</p>
-                                <h3 className="font-serif text-lg text-khadi-900 mb-2 leading-snug dark:text-khadi-50">{product.name}</h3>
-                                <div className="mt-auto pt-4 border-t border-khadi-50 dark:border-khadi-700 flex justify-between items-center">
-                                    <span className="font-bold text-lg text-gray-900 dark:text-white">₹{product.price.toLocaleString('en-IN')}</span>
-                                    <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded dark:bg-green-900 dark:text-green-100">In Stock</span>
-                                </div>
+
+                            {/* Info Area */}
+                            <div className="p-6 flex-1 flex flex-col text-center">
+                                <p className="text-xs text-khadi-accent font-bold uppercase mb-3 tracking-wider">{product.category}</p>
+                                <h3 className="font-serif text-lg text-khadi-900 mb-3 leading-snug dark:text-khadi-50">{product.name}</h3>
+                                <p className="text-sm text-gray-600 dark:text-khadi-300 leading-relaxed italic">
+                                    "{product.desc}"
+                                </p>
                             </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* --- ABOUT / INSTITUTIONAL PROFILE --- */}
+            {/* --- INSTITUTIONAL PROFILE --- */}
             <section id="about" className="bg-khadi-100 py-24 scroll-mt-16 dark:bg-khadi-900 border-t dark:border-khadi-800">
                 <div className="max-w-6xl mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -101,7 +101,6 @@ export default function Home() {
                                     <p className="text-sm text-gray-600 dark:text-khadi-200">{businessDetails.certNo}</p>
                                 </div>
 
-                                {/* Updated Registrations Card with GSTIN */}
                                 <div className="bg-white p-6 rounded shadow-sm border-l-4 border-khadi-accent dark:bg-khadi-800">
                                     <ScrollText className="text-khadi-accent mb-3" size={28} />
                                     <h3 className="font-bold text-khadi-900 dark:text-khadi-100">Registrations</h3>
@@ -130,7 +129,6 @@ export default function Home() {
                                     <p className="text-xl font-serif text-khadi-900 dark:text-khadi-50">{businessDetails.owner}</p>
                                 </div>
 
-                                {/* Added GSTIN to Formal Details */}
                                 <div>
                                     <label className="block text-xs font-bold text-khadi-accent uppercase mb-1">GST Registration</label>
                                     <p className="font-mono text-khadi-800 dark:text-khadi-200 tracking-wide">{businessDetails.gstin}</p>
@@ -155,11 +153,4 @@ export default function Home() {
 
         </div>
     );
-}
-
-// Helper component for the shopping bag icon
-function ShoppingBagIcon() {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-    )
 }

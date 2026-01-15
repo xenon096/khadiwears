@@ -1,14 +1,10 @@
-// src/components/Navbar.jsx
-import { ShoppingBag, Sun, Moon } from 'lucide-react';
-import { Link } from 'react-router-dom'; // Keep this for Logo home link
-import { useCart } from '../context/CartContext';
+import { Sun, Moon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { businessDetails } from '../data';
 
 export default function Navbar() {
-    const { cart, setIsCartOpen } = useCart();
     const { theme, toggleTheme } = useTheme();
-    const cartCount = cart.reduce((acc, item) => acc + item.qty, 0);
 
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
@@ -26,7 +22,7 @@ export default function Navbar() {
             <nav className="sticky top-0 z-40 bg-khadi-50/90 backdrop-blur-md border-b border-khadi-200 shadow-sm transition-colors duration-300 dark:bg-khadi-900/95 dark:border-khadi-800">
                 <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
 
-                    {/* Logo - Scrolls to Top */}
+                    {/* Logo */}
                     <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex flex-col group text-left">
             <span className="font-serif text-2xl font-bold text-khadi-900 group-hover:text-khadi-accent transition-colors dark:text-khadi-100">
               {businessDetails.name}
@@ -38,11 +34,11 @@ export default function Navbar() {
 
                     <div className="flex items-center gap-4 md:gap-8">
                         {/* Scroll Links */}
-                        <button onClick={() => scrollToSection('shop')} className="hidden md:block font-medium text-khadi-800 hover:text-khadi-accent dark:text-khadi-200 dark:hover:text-khadi-accent transition-colors">
-                            Collection
+                        <button onClick={() => scrollToSection('gallery')} className="hidden md:block font-medium text-khadi-800 hover:text-khadi-accent dark:text-khadi-200 dark:hover:text-khadi-accent transition-colors">
+                            Our Craft
                         </button>
                         <button onClick={() => scrollToSection('about')} className="hidden md:block font-medium text-khadi-800 hover:text-khadi-accent dark:text-khadi-200 dark:hover:text-khadi-accent transition-colors">
-                            About Society
+                            Institution Profile
                         </button>
 
                         {/* Theme Toggle */}
@@ -52,19 +48,6 @@ export default function Navbar() {
                             aria-label="Toggle Dark Mode"
                         >
                             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-                        </button>
-
-                        {/* Cart Button */}
-                        <button
-                            onClick={() => setIsCartOpen(true)}
-                            className="relative p-2 text-khadi-800 hover:bg-khadi-200 rounded-full transition-colors dark:text-khadi-200 dark:hover:bg-khadi-800"
-                        >
-                            <ShoppingBag size={22} />
-                            {cartCount > 0 && (
-                                <span className="absolute -top-1 -right-1 bg-khadi-accent text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full">
-                  {cartCount}
-                </span>
-                            )}
                         </button>
                     </div>
                 </div>

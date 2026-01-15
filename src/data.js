@@ -14,14 +14,6 @@ export const businessDetails = {
 export const products = [
     {
         id: 1,
-        name: "Mangalagiri Cotton Saree",
-        price: 2400,
-        category: "Sarees",
-        image: "https://placehold.co/600x800/EFEBE5/2C2925?text=Mangalagiri+Saree",
-        desc: "Handwoven pure cotton with traditional Nizam border."
-    },
-    {
-        id: 2,
         name: "Classic Khadi White Kurta",
         price: 1250,
         category: "Men's Apparel",
@@ -29,7 +21,7 @@ export const products = [
         desc: "Breathable handspun fabric, perfect for summers."
     },
     {
-        id: 3,
+        id: 2,
         name: "Ponduru Khadi Yardage",
         price: 850,
         category: "Fabric",
@@ -37,7 +29,7 @@ export const products = [
         desc: "Famous fine count organic cotton from Andhra Pradesh."
     },
     {
-        id: 4,
+        id: 3,
         name: "Natural Dyed Stole",
         price: 650,
         category: "Accessories",
